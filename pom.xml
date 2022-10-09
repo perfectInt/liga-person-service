@@ -12,9 +12,6 @@
 
     <artifactId>person-service</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-
-    <description>Сервис работы с физическими лицами</description>
 
     <modules>
         <module>core</module>
@@ -31,10 +28,5 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
 
 </project>

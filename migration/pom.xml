@@ -2,20 +2,69 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <artifactId>person-service</artifactId>
+        <artifactId>dependency-management-bom</artifactId>
         <groupId>liga.medical</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../dependency-management-bom/pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <packaging>jar</packaging>
     <artifactId>person-service-migration</artifactId>
+    <packaging>jar</packaging>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
+    <dependencies>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.plugin.version}</version>
+                <configuration>
+                    <changelogSchemaName>${profile.changelogSchemaName}</changelogSchemaName>
+                    <propertyFile>${profile.propertyFile}</propertyFile>
+                    <changeLogFile>${profile.changeLogFile}</changeLogFile>
+                    <dataDir>${profile.dataDir}</dataDir>
+                    <!-- log  -->
+                    <verbose>${profile.verbose}</verbose>
+                    <logging>${profile.logging}</logging>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <propertyFileWillOverride>true</propertyFileWillOverride>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Local settings, -Denv=local -->
+        <profile>
+            <id>local</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>local</value>
+                </property>
+            </activation>
+            <properties>
+                <profile.propertyFile>src/main/resources/db/local/liquibase.properties</profile.propertyFile>
+                <profile.changeLogFile>src/main/resources/db/master.xml</profile.changeLogFile>
+                <profile.dataDir>src/main/resources/db/local/data</profile.dataDir>
+                <profile.verbose>true</profile.verbose>
+                <profile.logging>debug</profile.logging>
+                <profile.changelogSchemaName>person_data</profile.changelogSchemaName>
+            </properties>
+        </profile>
+    </profiles>
 </project>

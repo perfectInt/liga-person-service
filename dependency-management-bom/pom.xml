@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <artifactId>person-service</artifactId>
@@ -9,10 +10,16 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-
     <artifactId>dependency-management-bom</artifactId>
     <packaging>pom</packaging>
+
+    <properties>
+        <!--        myBatis-->
+        <mybatis.version>2.2.2</mybatis.version>
+        <!--        liquibase-->
+        <liquibase.version>4.8.0</liquibase.version>
+        <liquibase.plugin.version>4.8.0</liquibase.plugin.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -29,7 +36,11 @@
                 <version>${springboot.test.version}</version>
                 <scope>test</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>liga.medical</groupId>
@@ -48,30 +59,29 @@
             </dependency>
             <dependency>
                 <groupId>liga.medical</groupId>
-                <artifactId>monitoring-core-api</artifactId>
+                <artifactId>person-service-core-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>liga.medical</groupId>
-                <artifactId>monitoring-dto</artifactId>
+                <artifactId>person-service-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>liga.medical</groupId>
-                <artifactId>monitoring-utils</artifactId>
+                <artifactId>person-service-dto</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>liga.medical</groupId>
-                <artifactId>monitoring-core</artifactId>
+                <artifactId>person-service-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-
             <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${mybatis.version}</version>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -98,10 +108,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
-
 </project>

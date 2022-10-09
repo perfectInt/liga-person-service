@@ -3,17 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>person-service</artifactId>
+        <artifactId>dependency-management-bom</artifactId>
         <groupId>liga.medical</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../dependency-management-bom/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <packaging>jar</packaging>
     <artifactId>person-service-core</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -45,11 +49,10 @@
             <groupId>liga.medical</groupId>
             <artifactId>person-service-dto</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
-        <!--        <finalName>analyzer-service</finalName>-->
+        <finalName>person-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -65,11 +68,18 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.yaml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
     </build>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
 
 </project>
